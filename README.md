@@ -69,15 +69,6 @@ npx http-server
 - Data, hora e observações
 - Listado em ordem decrescente (mais recentes primeiro)
 
-## Características de Design
-
-- **Design Responsivo**: Funciona em desktop, tablet e mobile
-- **Cores Modernas**: Gradiente roxa (#667eea → #764ba2)
-- **Animações Suave**: Transições de página, hover effects
-- **Acessibilidade**: Estrutura semântica HTML
-- **Modal Dialogs**: Para registrar uso e confirmar deleção
-- **Empty States**: Mensagens quando não há dados
-
 ## Tecnologias
 
 - **HTML5** - Estrutura semântica
