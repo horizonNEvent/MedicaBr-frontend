@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediLembr - Gerenciador de Medicamentos</title>
+    <title>MedicaBr - Gerenciador de Medicamentos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <header class="header">
-            <img src="img/remedios_logo.jpg" alt="MediLembr" class="header-background">
+            <img src="img/remedios_logo.jpg" alt="MedicaBr" class="header-background">
             <div class="header-content">
-                <h1>MediLembr</h1>
+                <h1>MedicaBr</h1>
                 <p>Seu gerenciador de medicamentos pessoal</p>
             </div>
         </header>
@@ -50,72 +52,34 @@
                 <form id="form-medicamento" class="form-container">
                     <div class="form-group">
                         <label for="nome">Nome do Medicamento *</label>
-                        <input
-                            type="text"
-                            id="nome"
-                            name="nome"
-                            required
-                            placeholder="Ex: Dipirona"
-                        >
+                        <input type="text" id="nome" name="nome" required placeholder="Ex: Dipirona">
                     </div>
 
                     <div class="form-group">
                         <label for="dosagem">Dosagem *</label>
-                        <input
-                            type="text"
-                            id="dosagem"
-                            name="dosagem"
-                            required
-                            placeholder="Ex: 500mg"
-                        >
+                        <input type="text" id="dosagem" name="dosagem" required placeholder="Ex: 500mg">
                     </div>
 
                     <div class="form-group">
                         <label for="frequencia">Frequência (a cada X horas) *</label>
-                        <input
-                            type="number"
-                            id="frequencia"
-                            name="frequencia"
-                            required
-                            min="1"
-                            placeholder="Ex: 8"
-                        >
+                        <input type="number" id="frequencia" name="frequencia" required min="1" placeholder="Ex: 8">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="estoque">Estoque Atual *</label>
-                            <input
-                                type="number"
-                                id="estoque"
-                                name="estoque"
-                                required
-                                min="0"
-                                placeholder="0"
-                            >
+                            <input type="number" id="estoque" name="estoque" required min="0" placeholder="0">
                         </div>
 
                         <div class="form-group">
                             <label for="minimo">Estoque Mínimo *</label>
-                            <input
-                                type="number"
-                                id="minimo"
-                                name="minimo"
-                                required
-                                min="1"
-                                placeholder="5"
-                            >
+                            <input type="number" id="minimo" name="minimo" required min="1" placeholder="5">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="validade">Data de Validade *</label>
-                        <input
-                            type="date"
-                            id="validade"
-                            name="validade"
-                            required
-                        >
+                        <input type="date" id="validade" name="validade" required>
                     </div>
 
                     <div class="form-actions">
@@ -163,12 +127,8 @@
 
                     <div class="form-group">
                         <label for="observacao">Observação (opcional)</label>
-                        <textarea
-                            id="observacao"
-                            name="observacao"
-                            rows="3"
-                            placeholder="Ex: Tomado com alimento"
-                        ></textarea>
+                        <textarea id="observacao" name="observacao" rows="3"
+                            placeholder="Ex: Tomado com alimento"></textarea>
                     </div>
 
                     <div class="form-actions">
@@ -199,4 +159,5 @@
 
     <script src="scripts.js"></script>
 </body>
+
 </html>
