@@ -1,0 +1,25 @@
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.atom/
+
+# Node modules (se usar bundler no futuro)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Logs
+*.log
+npm-debug.log*
+
+# Ambiente
+.env
+.env.local

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediLembr - Gerenciador de Medicamentos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="img/remedios_logo.jpg" alt="MediLembr" class="header-background">
+            <div class="header-content">
+                <h1>MediLembr</h1>
+                <p>Seu gerenciador de medicamentos pessoal</p>
+            </div>
+        </header>
+
+        <nav class="navbar">
+            <button class="nav-btn active" data-page="medicamentos">
+                Medicamentos
+            </button>
+            <button class="nav-btn" data-page="adicionar">
+                + Adicionar
+            </button>
+            <button class="nav-btn" data-page="alertas">
+                Alertas
+            </button>
+            <button class="nav-btn" data-page="historico">
+                Histórico
+            </button>
+        </nav>
+
+        <main class="main-content">
+            <section id="medicamentos-page" class="page active">
+                <h2>Meus Medicamentos</h2>
+
+                <div id="medicamentos-container" class="medicamentos-grid">
+                </div>
+
+                <div id="medicamentos-empty" class="empty-state">
+                    <p>Nenhum medicamento cadastrado ainda.</p>
+                    <p>Clique em "+ Adicionar" para começar!</p>
+                </div>
+            </section>
+
+            <section id="adicionar-page" class="page">
+                <h2>Cadastrar Novo Medicamento</h2>
+
+                <form id="form-medicamento" class="form-container">
+                    <div class="form-group">
+                        <label for="nome">Nome do Medicamento *</label>
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            required
+                            placeholder="Ex: Dipirona"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dosagem">Dosagem *</label>
+                        <input
+                            type="text"
+                            id="dosagem"
+                            name="dosagem"
+                            required
+                            placeholder="Ex: 500mg"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frequencia">Frequência (a cada X horas) *</label>
+                        <input
+                            type="number"
+                            id="frequencia"
+                            name="frequencia"
+                            required
+                            min="1"
+                            placeholder="Ex: 8"
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estoque">Estoque Atual *</label>
+                            <input
+                                type="number"
+                                id="estoque"
+                                name="estoque"
+                                required
+                                min="0"
+                                placeholder="0"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="minimo">Estoque Mínimo *</label>
+                            <input
+                                type="number"
+                                id="minimo"
+                                name="minimo"
+                                required
+                                min="1"
+                                placeholder="5"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="validade">Data de Validade *</label>
+                        <input
+                            type="date"
+                            id="validade"
+                            name="validade"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="reset" class="btn btn-secondary">Limpar</button>
+                    </div>
+
+                    <div id="form-message" class="form-message"></div>
+                </form>
+            </section>
+
+            <section id="alertas-page" class="page">
+                <h2>Medicamentos com Estoque Baixo</h2>
+
+                <div id="alertas-container" class="medicamentos-grid">
+                </div>
+
+                <div id="alertas-empty" class="empty-state">
+                    <p>Parabéns! Nenhum medicamento com estoque baixo.</p>
+                </div>
+            </section>
+
+            <section id="historico-page" class="page">
+                <h2>Histórico de Uso</h2>
+
+                <div id="historico-container" class="historico-list">
+                </div>
+
+                <div id="historico-empty" class="empty-state">
+                    <p>Nenhum registro de uso ainda.</p>
+                </div>
+            </section>
+        </main>
+
+        <div id="modal-uso" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Registrar Uso de Medicamento</h2>
+
+                <form id="form-uso" class="form-container">
+                    <div class="form-group">
+                        <label for="medicamento-nome">Medicamento:</label>
+                        <input type="text" id="medicamento-nome" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacao">Observação (opcional)</label>
+                        <textarea
+                            id="observacao"
+                            name="observacao"
+                            rows="3"
+                            placeholder="Ex: Tomado com alimento"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <button type="button" class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+                    </div>
+
+                    <div id="uso-message" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+
+        <div id="modal-deletar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModalDeletar()">&times;</span>
+                <h2>Confirmar Exclusão</h2>
+
+                <p>Tem certeza que deseja deletar o medicamento?</p>
+                <p id="medicamento-deletar-nome" style="font-weight: bold; color: #d32f2f;"></p>
+
+                <div class="form-actions">
+                    <button class="btn btn-danger" onclick="confirmarDelecao()">Deletar</button>
+                    <button class="btn btn-secondary" onclick="fecharModalDeletar()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
