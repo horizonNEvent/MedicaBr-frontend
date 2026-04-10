@@ -2,11 +2,14 @@ const API_URL = 'http://localhost:5000';
 
 let medicamentoSelecionado = null;
 let medicamentoDelecao = null;
+let filtroMedicamentos = '';
+let filtroAlertas = '';
 
 document.addEventListener('DOMContentLoaded', () => {
     inicializarNavegacao();
     inicializarFormularios();
     inicializarModais();
+    inicializarFiltros();
     carregarMedicamentos();
 });
 function inicializarNavegacao() {
@@ -21,6 +24,25 @@ function inicializarNavegacao() {
             mostrarPagina(pageName);
         });
     });
+}
+
+function inicializarFiltros() {
+    const medicamentosSearch = document.getElementById('medicamentos-search');
+    const alertasSearch = document.getElementById('alertas-search');
+
+    if (medicamentosSearch) {
+        medicamentosSearch.addEventListener('input', (e) => {
+            filtroMedicamentos = e.target.value;
+            carregarMedicamentos(filtroMedicamentos);
+        });
+    }
+
+    if (alertasSearch) {
+        alertasSearch.addEventListener('input', (e) => {
+            filtroAlertas = e.target.value;
+            carregarAlertas(filtroAlertas);
+        });
+    }
 }
 
 function mostrarPagina(pageName) {
@@ -54,9 +76,14 @@ function inicializarFormularios() {
         await registrarUso();
     });
 }
-async function carregarMedicamentos() {
+async function carregarMedicamentos(filtro = '') {
     try {
-        const response = await fetch(`${API_URL}/medicamentos`);
+        let url = `${API_URL}/medicamentos`;
+        if (filtro && filtro.trim() !== '') {
+            url += `?nome=${encodeURIComponent(filtro)}`;
+        }
+
+        const response = await fetch(url);
         const data = await response.json();
 
         const container = document.getElementById('medicamentos-container');
@@ -120,10 +147,14 @@ function criarCardMedicamento(medicamento) {
         </div>
 
         <div class="info-item">
-            <span class="info-label">Estoque: ${medicamento.estoque_atual} unidades</span>
+            <div class="estoque-info">
+                <span class="info-label">Estoque: ${medicamento.estoque_atual} unidades</span>
+                <span class="info-label" style="font-size: 0.9rem; color: #666;">Mínimo: ${medicamento.estoque_minimo} unidades</span>
+            </div>
             <div class="estoque-barra ${emAlerta ? 'baixo' : ''}">
                 <div class="estoque-preenchimento" style="width: ${percentual}%"></div>
             </div>
+            ${emAlerta ? '<span class="alerta-motivo">Estoque abaixo do mínimo</span>' : ''}
         </div>
 
         <div class="card-actions">
@@ -286,19 +317,23 @@ function criarItemHistorico(registro) {
             <span class="registro-medicamento">${registro.medicamento_nome}</span>
             <span class="registro-data">${dataFormatada} às ${horaFormatada}</span>
         </div>
-        ${
-            registro.observacao
-                ? `<div class="registro-observacao">Observação: ${registro.observacao}</div>`
-                : ''
+        ${registro.observacao
+            ? `<div class="registro-observacao">Observação: ${registro.observacao}</div>`
+            : ''
         }
     `;
 
     return item;
 }
 
-async function carregarAlertas() {
+async function carregarAlertas(filtro = '') {
     try {
-        const response = await fetch(`${API_URL}/medicamentos/alertas`);
+        let url = `${API_URL}/medicamentos/alertas`;
+        if (filtro && filtro.trim() !== '') {
+            url += `?nome=${encodeURIComponent(filtro)}`;
+        }
+
+        const response = await fetch(url);
         const data = await response.json();
 
         const container = document.getElementById('alertas-container');
