@@ -51,6 +51,7 @@ npx http-server
 - Mostra: nome, dosagem, frequência, estoque, validade
 - Alerta visual para estoque baixo
 - Barra de progresso de estoque
+- Campo de busca para filtrar por nome (em tempo real)
 - Botões rápidos para registrar uso ou deletar
 
 ### 2. **Adicionar** 
@@ -62,6 +63,7 @@ npx http-server
 ### 3. **Alertas** 
 - Lista medicamentos com estoque abaixo do limite mínimo
 - Destaque visual em cores de alerta
+- Campo de busca para filtrar por nome (em tempo real)
 - Atualiza em tempo real
 
 ### 4. **Histórico** 
@@ -81,11 +83,11 @@ npx http-server
 
 ### Endpoints chamados:
 ```
-GET    /medicamentos              - Listar medicamentos
+GET    /medicamentos              - Listar medicamentos (com filtro opcional ?nome=)
 POST   /medicamento               - Criar medicamento
 GET    /medicamento/<id>          - Buscar medicamento
 DELETE /medicamento/<id>          - Deletar medicamento
-GET    /medicamentos/alertas      - Listar com alerta
+GET    /medicamentos/alertas      - Listar com alerta (com filtro opcional ?nome=)
 POST   /registro_uso              - Registrar uso
 GET    /historico                 - Listar histórico
 ```
@@ -107,6 +109,7 @@ frontend/
 - ✅ Registro de uso com data/hora
 - ✅ Sistema de alertas de estoque
 - ✅ Histórico de uso
+- ✅ Busca/Filtro por nome em "Meus Medicamentos" e "Alertas" (em tempo real)
 - ✅ Modais para confirmações
 - ✅ Mensagens de feedback
 - ✅ Design responsivo
